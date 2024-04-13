@@ -1,4 +1,4 @@
-import config from "../config/config";
+import config from "../config/config.js";
 import { Client, ID, Databases, Storage, Query } from "appwrite";
 
 export class Service {
@@ -14,7 +14,7 @@ export class Service {
     this.bucket = new Storage(this.client);
   }
 
-  async createPost({ title, slug, content, featureImage, status, userId }) {
+  async createPost({ title, slug, content, featuredImage, status, userId }) {
     try {
       return await this.databases.createDocument(
         config.appwriteDatabaseId,
@@ -23,13 +23,13 @@ export class Service {
         {
           title,
           content,
-          featureImage,
+          featuredImage,
           status,
           userId,
         }
       );
     } catch (error) {
-      console.log("Appwrite Service :: createPost :: error", error);
+      console.log("Appwrite serive :: createPost :: error", error);
     }
   }
 
@@ -47,7 +47,7 @@ export class Service {
         }
       );
     } catch (error) {
-      console.log("Appwrite service :: updatePost :: error", error);
+      console.log("Appwrite serive :: updatePost :: error", error);
     }
   }
 
@@ -91,7 +91,7 @@ export class Service {
     }
   }
 
-  //file upload service
+  // file upload service
 
   async uploadFile(file) {
     try {
