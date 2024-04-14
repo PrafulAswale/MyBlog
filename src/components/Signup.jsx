@@ -5,6 +5,7 @@ import { login } from "../store/authSlice";
 import { Button, Input, Logo } from "./index.js";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 function Signup() {
   const navigate = useNavigate();
@@ -21,9 +22,11 @@ function Signup() {
         const userData = await authService.getCurrentUser();
         if (userData) dispatch(login(userData));
         navigate("/");
+        toast.success("User Registration Successful");
       }
     } catch (error) {
       setError(error.message);
+      toast.error(error.message);
     }
   };
   return (

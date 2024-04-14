@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Button, Input, RTE, Select } from "..";
 import appwriteService from "../../appwrite/config";
+import { toast } from "react-toastify";
 
 export default function PostForm({ post }) {
   const { register, handleSubmit, watch, setValue, control, getValues } =
@@ -20,8 +21,6 @@ export default function PostForm({ post }) {
   const userData = useSelector((state) => state.auth.userData);
 
   const submit = async (data) => {
-    console.log(data.image[0]);
-    console.log(post);
     if (post) {
       const file = data.image[0]
         ? await appwriteService.uploadFile(data.image[0])
@@ -38,6 +37,7 @@ export default function PostForm({ post }) {
 
       if (dbPost) {
         navigate(`/post/${dbPost.$id}`);
+        toast.success("Post Added");
       }
     } else {
       const file = await appwriteService.uploadFile(data.image[0]);
@@ -52,6 +52,7 @@ export default function PostForm({ post }) {
 
         if (dbPost) {
           navigate(`/post/${dbPost.$id}`);
+          toast.success("Post Added");
         }
       }
     }

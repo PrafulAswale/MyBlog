@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import authService from "../../appwrite/auth";
 import { logout } from "../../store/authSlice";
+import { toast } from "react-toastify";
 
 function LogoutBtn() {
   const dispatch = useDispatch();
@@ -9,6 +10,7 @@ function LogoutBtn() {
     authService.logout().then(() => {
       dispatch(logout());
     });
+    toast.success("Logout Successful");
   };
   return (
     <button
